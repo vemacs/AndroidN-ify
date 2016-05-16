@@ -1,6 +1,7 @@
 package tk.wasdennnoch.androidn_ify.notifications;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,7 +38,9 @@ public class NotificationPanelHooks {
             View mQsContainer = (View) XposedHelpers.getObjectField(param.thisObject, "mQsContainer");
             try {
                 //noinspection deprecation
-                mQsContainer.setBackgroundColor(context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI)));
+                ((GradientDrawable) mQsContainer.getBackground()).setColor(
+                    context.getResources().getColor(context.getResources().getIdentifier("system_primary_color", "color", PACKAGE_SYSTEMUI))
+                );
             } catch (Throwable t) {
                 XposedHook.logE(TAG, "Couldn't change QS container background color", t);
             }
